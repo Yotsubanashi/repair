@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repair/Check Up Request Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border: 2px solid #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0 10px 0;
+            margin: 0;
+        }
+
+        .logo {
+            display: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-title {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            margin-right: 120px;
+        }
+
+        .section-header {
+            background-color: #2c5f41 !important;
+            color: #fff !important;
+            padding: 8px 15px;
+            font-weight: bold;
+            font-size: 14px;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .section-content {
+            padding: 15px;
+        }
+
+        .form-row {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .form-row.single {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .form-group:last-child {
+            margin-right: 0;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-right: 10px;
+            min-width: 120px;
+            font-size: 12px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ccc;
+            font-size: 12px;
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .findings-section {
+            margin-bottom: 15px;
+        }
+
+        .findings-section label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .findings-section textarea {
+            width: 100%;
+            min-height: 60px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            font-size: 12px;
+            resize: vertical;
+        }
+
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .signature-group {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .signature-group:last-child {
+            margin-right: 0;
+        }
+
+        .signature-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .signature-group input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .signature-canvas {
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            cursor: crosshair;
+            width: 100%;
+            height: 80px;
+        }
+
+        .signature-controls {
+            margin-top: 5px;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .btn-primary {
+            background-color: #2c5f41;
+            color: white;
+            border-color: #2c5f41;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e4129;
+        }
+
+        .form-actions {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ccc;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .form-actions {
+                display: none;
+            }
+            textarea,
+            input,
+            select {
+                border: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                outline: none !important;
+            }
+            select#department {
+                display: none !important;
+            }
+            .print-department {
+                display: inline !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="header">
+            <img src="Pictures/logo_full.svg" alt="Company Logo" style="height: 48px; margin-right: 16px; vertical-align: middle;">
+            <div class="form-title">REPAIR/CHECK UP REQUEST FORM</div>
+        </div>
+
+        <form id="repairForm">
+            <!-- Employee Information Section -->
+            <div class="section-header">Employee Information</div>
+            <div class="section-content">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="requesterName">Requester Name:</label>
+                        <input type="text" id="requesterName" name="requesterName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department:</label>
+                        <select id="department" name="department" required>
+                            <option value="">Select Department</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="IT">IT</option>
+                            <option value="HR">HR</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Operations">Operations</option>
+                        </select>
+                        <span class="print-department" style="display:none;"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="position">Position/Title:</label>
+                        <input type="text" id="position" name="position" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="requestDate">Date:</label>
+                        <input type="date" id="requestDate" name="requestDate" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item to Repair Section -->
+            <div class="section-header">Item to repair</div>
+            <div class="section-content">
+                <div class="form-row single">
+                    <div class="form-group">
+                        <label for="itemToRepair">Item Description:</label>
+                        <input type="text" id="itemToRepair" name="itemToRepair" placeholder="e.g., Laptop, Desktop, Printer, etc." required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Findings/Recommendation Section -->
+            <div class="section-header">Findings/Recommendation</div>
+            <div class="section-content">
+                <div class="findings-section">
+                    <label for="findings">Findings:</label>
+                    <textarea id="findings" name="findings" placeholder="Describe the issues found with the item..." required></textarea>
+                </div>
+                <div class="findings-section">
+                    <label for="recommendation">Recommendation:</label>
+                    <textarea id="recommendation" name="recommendation" placeholder="Provide recommendations for repair or replacement..." required></textarea>
+                </div>
+            </div>
+
+            <!-- Repair Information Section -->
+            <div class="section-header">Repair Information</div>
+            <div class="section-content">
+                <div class="signature-section">
+                    <div class="signature-group">
+                        <label>Repaired by:</label>
+                        <img src="Pictures/signature.png" alt="Cedrick Almueda Signature" style="width: 200px; height: 80px; object-fit: contain; background-color: #f9f9f9; margin-bottom: 10px;">
+                        <h3 style="margin: 5px 0; font-size: 14px; font-weight: bold;">Cedrick Almueda</h3>
+                        <p style="margin: 5px 0; font-size: 12px; color: #666;">Technical Support</p>
+                    </div>
+                    
+                    <div class="signature-group">
+                        <label>Approved by:</label>
+                        <img src="Pictures/signature2.png" alt="Paul Cueva Signature" style="width: 200px; height: 80px; object-fit: contain; background-color: #f9f9f9; margin-bottom: 10px;">
+                        <h3 style="margin: 5px 0; font-size: 14px; font-weight: bold;">Paul Cueva</h3>
+                        <p style="margin: 5px 0; font-size: 12px; color: #666;">Sr. IT Manager</p>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="form-actions">
+            <button type="button" class="btn btn-primary" onclick="saveForm()">Save Form</button>
+            <button type="button" class="btn btn-primary" onclick="printForm()">Print Form</button>
+            <button type="button" class="btn" onclick="clearForm()">Clear All</button>
+        </div>
+    </div>
+
+    <script>
+        // Set today's date as default
+        document.getElementById('requestDate').valueAsDate = new Date();
+
+        function saveForm() {
+            const formData = new FormData(document.getElementById('repairForm'));
+            const data = Object.fromEntries(formData);
+            
+            // Save to localStorage
+            localStorage.setItem('repairFormData', JSON.stringify(data));
+            alert('Form saved successfully!');
+        }
+
+        function printForm() {
+            window.print();
+        }
+
+        function clearForm() {
+            if (confirm('Are you sure you want to clear all form data?')) {
+                document.getElementById('repairForm').reset();
+                document.getElementById('requestDate').valueAsDate = new Date();
+            }
+        }
+
+        // Load saved form data on page load
+        window.addEventListener('load', function() {
+            const savedData = localStorage.getItem('repairFormData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                Object.keys(data).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element && element.type !== 'file') {
+                        element.value = data[key];
+                    }
+                });
+            }
+        });
+
+        // Auto-save functionality
+        setInterval(function() {
+            const formData = new FormData(document.getElementById('repairForm'));
+            const data = Object.fromEntries(formData);
+            if (Object.values(data).some(value => value.trim() !== '')) {
+                localStorage.setItem('repairFormAutoSave', JSON.stringify(data));
+            }
+        }, 30000); // Auto-save every 30 seconds
+
+        // Print-only department value
+        function updatePrintDepartment() {
+            var select = document.getElementById('department');
+            var printSpan = document.querySelector('.print-department');
+            printSpan.textContent = select.options[select.selectedIndex].value || '';
+        }
+        document.getElementById('department').addEventListener('change', updatePrintDepartment);
+        window.addEventListener('load', updatePrintDepartment);
+        window.addEventListener('beforeprint', updatePrintDepartment);
+    </script>
+</body>
+</html>
